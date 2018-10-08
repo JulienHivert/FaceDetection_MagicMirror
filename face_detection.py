@@ -56,7 +56,7 @@ while (cap.isOpened()):
             #print(i)
             counter = 1
             cv2.putText(img, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
-            for i in range (0,10000000000000000000000000000000000000000000000):
+            for i in range (0,1000):
                 if name is name :
                     print(i)
                 name_1 =  name
