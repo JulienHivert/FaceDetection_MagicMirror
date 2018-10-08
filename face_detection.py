@@ -23,8 +23,6 @@ labels = {"person_name": 1}
 with open('label.pickle', "rb") as f:
     og_labels = pickle.load(f)
     labels = {v:k for k,v in og_labels.items()}
-#eye_cascade = cv2.CascadeClassifier('haar/haarcascade_eye.xml')
-
 #initialisation de la video
 cap = cv2.VideoCapture(0)
 #Ouverture de la vidéo 
@@ -56,11 +54,13 @@ while (cap.isOpened()):
             #print(i)
             counter = 1
             cv2.putText(img, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
-            for i in range (0,1000):
+            for i in range (0,100):
                 if name is name :
                     print(i)
-                name_1 =  name
+                name_1 = name
                 print(name_1)
+                img_item =  name_1+".png"
+                cv2.imwrite(img_item, roi_color)
                 sys.exit()
             else :
                 print("salut")
