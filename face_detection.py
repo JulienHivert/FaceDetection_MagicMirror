@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import cv2, os, time
+import cv2, os, time, sys
 import numpy as np 
 import pickle
 
@@ -45,17 +45,27 @@ while (cap.isOpened()):
         id_, conf = recognizer.predict(roi_gray)
 
         if conf>=70 and conf <=85:
-            print(conf)
-            print(id_)
-            print(labels[id_])
+            #print(conf)
+            #print(id_)
+            #print(labels[id_])
             font = cv2.FONT_HERSHEY_SIMPLEX
             name = labels[id_]
             color = (255, 255, 255)
             strole = 2
-            print(name)
+            #print(name)
+            #print(i)
+            counter = 1
             cv2.putText(img, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
-            img_item =  name+".png"
-            #cv2.imwrite(img_item, roi_color)
+            for i in range (0,10000000000000000000000000000000000000000000000):
+                if name is name :
+                    print(i)
+                name_1 =  name
+                print(name_1)
+                sys.exit()
+            else :
+                print("salut")
+            img_item =  name_1+".png"
+            cv2.imwrite(img_item, roi_color)
             #Affichage du resultat
             #cv2.imwrite(img_item, roi_color)
     cv2.imshow("frame", img)
