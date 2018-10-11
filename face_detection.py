@@ -12,13 +12,11 @@ import pickle
 #Utilsation des patterns pour les haars
 face_cascade =  cv2.CascadeClassifier('haar/haarcascade_frontalface_default.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-
 #On recupere le temps courant 
 localtime = time.asctime((time.localtime(time.time())))
 print(localtime)
 #On lit le modèle entrainé
 recognizer.read("trainner.yml")
-
 labels = {"person_name": 1}
 with open('label.pickle', "rb") as f:
     og_labels = pickle.load(f)
@@ -29,6 +27,8 @@ cap = cv2.VideoCapture(0)
 while (cap.isOpened()):
     #decoupage frame par frame
     ret, img = cap.read()
+    if ret == True:
+        img = cv2.flip(img,90)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 4)
     for (x,y,w,h) in faces:
@@ -57,15 +57,14 @@ while (cap.isOpened()):
             for i in range (0,100):
                 if name is name :
                     print(i)
-                name_1 = name
-                print(name_1)
-                img_item =  name_1+".png"
-                cv2.imwrite(img_item, roi_color)
+                #print(name)
+                img_item =  name+".png"
+                print(img_item)
+                cv2.imwrite(img_item, img)
                 sys.exit()
             else :
                 print("salut")
-            img_item =  name_1+".png"
-            cv2.imwrite(img_item, roi_color)
+                img_item =  name_1+".png"
             #Affichage du resultat
             #cv2.imwrite(img_item, roi_color)
     cv2.imshow("frame", img)
