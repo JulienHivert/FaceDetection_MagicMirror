@@ -27,8 +27,6 @@ cap = cv2.VideoCapture(0)
 while (cap.isOpened()):
     #decoupage frame par frame
     ret, img = cap.read()
-    if ret == True:
-        img = cv2.flip(img,90)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 4)
     for (x,y,w,h) in faces:
