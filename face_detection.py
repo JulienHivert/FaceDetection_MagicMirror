@@ -20,7 +20,6 @@ localtime = time.asctime((time.localtime(time.time())))
 
 final_path ="/home/julien/python/OpenCV/Script/Mirroir_Connecté/images/"
 
-
 #On lit le modèle entrainé
 recognizer.read("trainner.yml")
 labels = {"person_name": 1}
