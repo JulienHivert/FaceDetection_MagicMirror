@@ -14,9 +14,9 @@ import shutil
 #Utilsation des patterns pour les haars
 face_cascade =  cv2.CascadeClassifier('haar/haarcascade_frontalface_default.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
+
 #On recupere le temps courant 
 localtime = time.asctime((time.localtime(time.time())))
-#print(localtime)
 
 final_path ="/home/julien/python/OpenCV/Script/Mirroir_Connecté/images/"
 
@@ -61,6 +61,7 @@ while (cap.isOpened()):
             #print(i)
             counter = 1
             cv2.putText(img, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
+
             for i in range (0,100):
                 if name is name :
                     print(i)
@@ -71,8 +72,9 @@ while (cap.isOpened()):
                 origin_path ="/home/julien/python/OpenCV/Script/Mirroir_Connecté/"
                 folder_list = os.listdir(final_path)
                 for x in folder_list:
-                    print(x)
-                    if x == "Julien_hivert":
+                    #print(x)
+                    if x == "Julien_hivert" or "eva-green" or "michel" or "emilia_clarcke":
+                        #Mettre ça dans un tableau et à chaque nouvelle personne on l'ajoute dans le tableau
                         print("true")
                     else : 
                         print("false")
@@ -83,6 +85,7 @@ while (cap.isOpened()):
                 img_item =  name_1+".png"
             #Affichage du resultat
             #cv2.imwrite(img_item, roi_color)
+
     cv2.imshow("frame", img)
     
     if cv2.waitKey(30) & 0xFF ==ord('q'):
