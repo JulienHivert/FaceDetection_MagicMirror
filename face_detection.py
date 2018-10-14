@@ -55,7 +55,7 @@ while (cap.isOpened()):
             #print(labels[id_])
             font = cv2.FONT_HERSHEY_SIMPLEX
             name = labels[id_]
-            color = (255, 255, 255)
+            color = (255, 255, 0)
             strole = 2
             #print(name)
             #print(i)
@@ -73,8 +73,17 @@ while (cap.isOpened()):
                 folder_list = os.listdir(final_path)
                 for x in folder_list:
                     #print(x)
-                    if x == "Julien_hivert" or "eva-green" or "michel" or "emilia_clarcke":
+                    if x == "Julien_hivert" or  or "michel" or "emilia_clarcke":
                         #Mettre ça dans un tableau et à chaque nouvelle personne on l'ajoute dans le tableau
+                        print("true")
+                    
+                    elif x == "eva-green":
+                        print("True")
+
+                    elif x == "michel":
+                        print("true")
+
+                    elif x == "emilia_clarcke":
                         print("true")
                     else : 
                         print("false")
