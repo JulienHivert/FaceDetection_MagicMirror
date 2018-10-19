@@ -82,10 +82,18 @@ while (cap.isOpened()):
                         #os.changedir()
                         os.chdir("/home/julien/python/OpenCV/Script/Mirroir_Connecté/images")
                         #os.getCurrentWorkingDirectory
-                        print(os.getcwd()
-                        sys.exit()
+                        print(os.getcwd())
+                        #sys.exit()
                 
+            #Affichage du resultat
+            cv2.imwrite(img_item, roi_color)
 
+    cv2.imshow("frame", img)
+    if cv2.waitKey(30) & 0xFF ==ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
 
 
                 # for folder_name in folder_list:
@@ -112,13 +120,3 @@ while (cap.isOpened()):
             # else :
             #     print("salut")
             #     img_item =  name_1+".png"
-
-            #Affichage du resultat
-            # cv2.imwrite(img_item, roi_color)
-
-    cv2.imshow("frame", img)
-    if cv2.waitKey(30) & 0xFF ==ord('q'):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
