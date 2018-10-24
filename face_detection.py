@@ -54,7 +54,7 @@ while (cap.isOpened()):
             #print(labels[id_])
             font = cv2.FONT_HERSHEY_SIMPLEX
             name = labels[id_]
-            color = (255, 255, 0)
+            color = (255, 255, 0) 
             strole = 2
             counter = 1
             #Affiche le texte au dessus de l'haar
@@ -76,14 +76,14 @@ while (cap.isOpened()):
                     if folder_name == "michel":
                         print("bonjour")
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/michel")
+                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         for filename in len(ma_varable_test):
                             print(ma_varable_test)
                         sys.exit()
 
                     elif folder_name == "Julien_Hivert":
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/Julien_hivert")
+                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         for filename in range (len(ma_varable_test)):
                             i = i + 1 
                             print(i)
@@ -92,7 +92,7 @@ while (cap.isOpened()):
 
                     elif folder_name == "Eva_Green":
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/eva-green")
+                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         for filename  in range (len(ma_varable_test)):
                             i = i+1
                             print(i)
