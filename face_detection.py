@@ -81,22 +81,22 @@ while (cap.isOpened()):
                             print(ma_varable_test)
                         sys.exit()
 
-                    elif folder_name == "Julien_hivert":
+                    elif folder_name == "Julien_Hivert":
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/Julien_hivert")
                         for filename in range (len(ma_varable_test)):
                             i = i + 1 
                             print(i)
-                            #os.rename("/home/julien/python/OpenCV/Script/MagicMirror/", "/home/julien/python/OpenCV/Script/MagicMirror/images/Julien_Hivert/"+i)
+                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/", "/home/julien/python/OpenCV/Script/MagicMirror/images/Julien_Hivert/"+i)
                         sys.exit()
 
-                    elif folder_name == "eva-green":
+                    elif folder_name == "Eva_Green":
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/eva-green")
                         for filename  in range (len(ma_varable_test)):
                             i = i+1
                             print(i)
-                            #os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/eva-green/"+i )
+                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/eva-green/"+i )
                         sys.exit()
                     elif folder_name == "emilia_clarcke" :
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
