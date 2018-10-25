@@ -17,6 +17,7 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 #On recupere le temps courant 
 localtime = time.asctime((time.localtime(time.time())))
+origin_path = "/home/julien/python/OpenCV/Script/MagicMirror/"
 final_path = "/home/julien/python/OpenCV/Script/MagicMirror/images/"
 
 #On lit le modèle entrainé
@@ -65,7 +66,7 @@ while (cap.isOpened()):
                 print(img_item)
                 cv2.imwrite(img_item, img)
                 cv2.imwrite(img_item, roi_color)
-                origin_path = "/home/julien/python/OpenCV/Script/MagicMirror/"+img_item
+                origin_path = origin_path+img_item
                 print(origin_path)
                 folder_list = os.listdir(final_path)
                 #Pour les noms de fichier dans le dossier "python/OpenCV/Script/Mirroir_Connecté/images/"
@@ -73,32 +74,33 @@ while (cap.isOpened()):
                     #On affiche la liste des dossiers
                     print(folder_name)
                     #Si l'un des dossiers se nomme "michel" alors on dit bonjour, on se deplace dans le dossier 
-                    if folder_name == "michel":
+                    
+                    if folder_name == "michel" and folder_name ==  name:
                         print("bonjour")
-                        shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                        shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         for filename in len(ma_varable_test):
                             print(ma_varable_test)
-                        sys.exit()
+                        
 
-                    elif folder_name == "Julien_Hivert":
-                        shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                    elif folder_name == "julien_hivert" and folder_name == name: 
+                        #on depace la photo dans le dossier de la personne
+                        shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         for filename in range (len(ma_varable_test)):
                             i = i + 1 
                             print(i)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/", "/home/julien/python/OpenCV/Script/MagicMirror/images/Julien_Hivert/"+i)
-                        sys.exit()
-
-                    elif folder_name == "Eva_Green":
-                        shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        for filename  in range (len(ma_varable_test)):
-                            i = i+1
-                            print(i)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/eva-green/"+i )
-                        sys.exit()
-                    elif folder_name == "emilia_clarcke" :
+                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/", "/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+str(i))
+                        
+                    # elif folder_name == "Eva_Green" and folder_name == name:
+                    #     shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                    #     ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                    #     for filename  in range (len(ma_varable_test)):
+                    #         i = i+1
+                    #         print(i)
+                    #         os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/Eva_Green/"+str(i))
+                    #     sys.exit()
+                    elif folder_name == "emilia_clarcke" and folder_name == name:
                         shutil.move("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
                         sys.exit()
                     else :
