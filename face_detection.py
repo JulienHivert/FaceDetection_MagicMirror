@@ -49,7 +49,7 @@ while (cap.isOpened()):
         roi_color = img[y:y+h, x:x+y]
         id_, conf = recognizer.predict(roi_gray)
         
-        if conf>=70 and conf <=85:
+        if conf>=70 :#and conf <=85:
             #print(conf)
             #print(id_)
             #print(labels[id_])
@@ -76,26 +76,31 @@ while (cap.isOpened()):
                     #Si l'un des dossiers se nomme "michel" alors on dit bonjour, on se deplace dans le dossier 
                     
                     if folder_name == "michel" and folder_name ==  name:
-                        print("bonjour")
                         shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        for filename in len(ma_varable_test):
-                            print(ma_varable_test)
+                        count_the_number_of_file_inside_the_directory = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                        for filename in len(count_the_number_of_file_inside_the_directory):
+                            print(count_the_number_of_file_inside_the_directory)
                         
-
                     elif folder_name == "julien_hivert" and folder_name == name: 
                         #on depace la photo dans le dossier de la personne
+
+#TODO CREER UN DOSSIER TAMPON 
+
+                        #origin_path =  racine du projet
                         shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        for filename in range (len(ma_varable_test)):
-                            i = i + 1 
-                            print(i)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/", "/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+str(i))
-                        
+                        count_the_number_of_file_inside_the_directory = len(os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name))
+                        #Pour les noms de fichiers dans la taille du tableau de fichier 
+                        for filename in range (count_the_number_of_file_inside_the_directory):
+                            #On incremente le compteur 
+                            i = count_the_number_of_file_inside_the_directory + 1 
+                            #On rename le fichier julien_hivert.png par le nombre /i/.png
+                            final_name = str(i)+".png"
+                            print(final_name)
+                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+final_name) 
                     # elif folder_name == "Eva_Green" and folder_name == name:
                     #     shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                    #     ma_varable_test = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                    #     for filename  in range (len(ma_varable_test)):
+                    #     count_the_number_of_file_inside_the_directory = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
+                    #     for filename  in range (len(count_the_number_of_file_inside_the_directory)):
                     #         i = i+1
                     #         print(i)
                     #         os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/Eva_Green/"+str(i))
