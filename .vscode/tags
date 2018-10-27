@@ -1,0 +1,59 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BASE_DIR	../face_trained.py	/^BASE_DIR = os.path.dirname(os.path.abspath(__file__))$/;"	kind:variable	line:16
+Image	../face_trained.py	/^from PIL import Image$/;"	kind:namespace	line:11
+cap	../face_detection.py	/^cap = cv2.VideoCapture(0)$/;"	kind:variable	line:31
+color	../face_detection.py	/^            color = (255, 255, 0)$/;"	kind:variable	line:57
+counter	../face_detection.py	/^            counter = 1$/;"	kind:variable	line:61
+current_id	../face_trained.py	/^current_id = 0$/;"	kind:variable	line:27
+cv2	../face_detection.py	/^import cv2, os, time, sys$/;"	kind:namespace	line:3
+cv2	../face_trained.py	/^import cv2$/;"	kind:namespace	line:10
+face_cascade	../face_detection.py	/^face_cascade =  cv2.CascadeClassifier('haar\/haarcascade_frontalface_default.xml')$/;"	kind:variable	line:15
+face_cascade	../face_trained.py	/^face_cascade = cv2.CascadeClassifier('haar\/haarcascade_frontalface_default.xml')$/;"	kind:variable	line:20
+face_detection.py	../face_detection.py	1;"	kind:file	line:1
+face_trained.py	../face_trained.py	1;"	kind:file	line:1
+faces	../face_detection.py	/^    faces = face_cascade.detectMultiScale(gray, 1.3, 4)$/;"	kind:variable	line:38
+faces	../face_trained.py	/^            faces = face_cascade.detectMultiScale(image_array, 1.3, 5)$/;"	kind:variable	line:54
+final_image	../face_trained.py	/^            final_image = pil_image.resize(size, Image.ANTIALIAS)$/;"	kind:variable	line:51
+final_path	../face_detection.py	/^final_path = "\/home\/julien\/python\/OpenCV\/Script\/Mirroir_Connecté\/images\/"$/;"	kind:variable	line:20
+folder_list	../face_detection.py	/^                folder_list = os.listdir(final_path)$/;"	kind:variable	line:73
+font	../face_detection.py	/^            font = cv2.FONT_HERSHEY_SIMPLEX$/;"	kind:variable	line:55
+gray	../face_detection.py	/^    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:37
+id_	../face_trained.py	/^                id_ =  label_ids[label]$/;"	kind:variable	line:44
+image_array	../face_trained.py	/^            image_array = np.array(final_image, "uint8")$/;"	kind:variable	line:52
+image_dir	../face_trained.py	/^image_dir = os.path.join(BASE_DIR, "images")$/;"	kind:variable	line:17
+img_item	../face_detection.py	/^                    img_item= name+".png"$/;"	kind:variable	line:68
+label	../face_trained.py	/^            label = os.path.basename(root).replace(" ","-").lower()$/;"	kind:variable	line:37
+label_ids	../face_trained.py	/^label_ids = {}$/;"	kind:variable	line:28
+labels	../face_detection.py	/^    labels = {v:k for k,v in og_labels.items()}$/;"	kind:variable	line:28
+labels	../face_detection.py	/^labels = {"person_name": 1}$/;"	kind:variable	line:24
+localtime	../face_detection.py	/^localtime = time.asctime((time.localtime(time.time())))$/;"	kind:variable	line:19
+name	../face_detection.py	/^            name = labels[id_]$/;"	kind:variable	line:56
+np	../face_detection.py	/^import numpy as np $/;"	kind:namespace	line:4
+np	../face_trained.py	/^import numpy as np $/;"	kind:namespace	line:12
+og_labels	../face_detection.py	/^    og_labels = pickle.load(f)$/;"	kind:variable	line:27
+origin_path	../face_detection.py	/^                origin_path = "\/home\/julien\/python\/OpenCV\/Script\/Mirroir_Connecté\/"+img_item$/;"	kind:variable	line:71
+os	../face_detection.py	/^import cv2, os, time, sys$/;"	kind:namespace	line:3
+os	../face_trained.py	/^import os $/;"	kind:namespace	line:9
+path	../face_trained.py	/^            path = os.path.join(root, file)$/;"	kind:variable	line:36
+pickle	../face_detection.py	/^import pickle$/;"	kind:namespace	line:5
+pickle	../face_trained.py	/^import pickle$/;"	kind:namespace	line:13
+pil_image	../face_trained.py	/^            pil_image = Image.open(path).convert("L")$/;"	kind:variable	line:48
+recognizer	../face_detection.py	/^recognizer = cv2.face.LBPHFaceRecognizer_create()$/;"	kind:variable	line:16
+recognizer	../face_trained.py	/^recognizer = cv2.face.LBPHFaceRecognizer_create()$/;"	kind:variable	line:25
+rectangle_color	../face_detection.py	/^        rectangle_color = (255,0,0)$/;"	kind:variable	line:43
+roi	../face_trained.py	/^                roi = image_array [y:y+h, x:x+w]$/;"	kind:variable	line:57
+roi_color	../face_detection.py	/^        roi_color = img[y:y+h, x:x+y]$/;"	kind:variable	line:48
+roi_gray	../face_detection.py	/^        roi_gray =  gray[y:y+h, x:x+y]$/;"	kind:variable	line:46
+shutil	../face_detection.py	/^import shutil $/;"	kind:namespace	line:6
+size	../face_trained.py	/^            size = (900,900) #Taille de la nouvelle image $/;"	kind:variable	line:50
+stroke	../face_detection.py	/^        stroke = 2$/;"	kind:variable	line:44
+strole	../face_detection.py	/^            strole = 2$/;"	kind:variable	line:58
+sys	../face_detection.py	/^import cv2, os, time, sys$/;"	kind:namespace	line:3
+time	../face_detection.py	/^import cv2, os, time, sys$/;"	kind:namespace	line:3
+x_train	../face_trained.py	/^x_train = []$/;"	kind:variable	line:30
+y_labels	../face_trained.py	/^y_labels = []$/;"	kind:variable	line:29
