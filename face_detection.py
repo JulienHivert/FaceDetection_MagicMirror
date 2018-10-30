@@ -1,128 +1,217 @@
 #! /usr/bin/env python3
 
-import cv2, os, sys
-import numpy as np 
+import cv2
 import pickle
-import shutil 
+import os, sys, gc, re
+import time
+from clock import Clock
 
-#cv2 pour l'utilisation de la webcam
-#os pour pouvoir save les images tests
-#numpy pour faire des calculs matriciels
-#shutil pour deplacer les photos dans un repertoire
-
-#Utilsation des patterns pour les haars
-face_cascade =  cv2.CascadeClassifier('haar/haarcascade_frontalface_default.xml')
-recognizer = cv2.face.LBPHFaceRecognizer_create()
-
-#On recupere le temps courant 
-origin_path = "/home/julien/python/OpenCV/Script/MagicMirror/"
-final_path = "/home/julien/python/OpenCV/Script/MagicMirror/images/"
-
-#On lit le modèle entrainé
-recognizer.read("trainner.yml")
-labels = {"person_name": 1}
-i = 1 
-
-with open('label.pickle', "rb") as f:
-    og_labels = pickle.load(f)
-    labels = {v:k for k,v in og_labels.items()}
-
-#initialisation de la vidéo
-cap = cv2.VideoCapture(0)
-#Ouverture de la vidéo 
-
-while (cap.isOpened()):
-    #decoupage frame par frame
-    ret, img = cap.read()
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 4)
-    for (x,y,w,h) in faces:
-        #Affiche les postion x,y,w,h du visage en fonction du frontalface pattern    
-        #print(x,y,w,h)
-        rectangle_color = (255,0,0)
-        stroke = 2
-        cv2.rectangle(img, (x,y), (x+w, y+h), rectangle_color, stroke)
-        roi_gray =  gray[y:y+h, x:x+y]
-        #cv2.imwrite("hello.jpg",roi_gray)
-        roi_color = img[y:y+h, x:x+y]
-        id_, conf = recognizer.predict(roi_gray)
+USAGE = """Usage: {filename} trainer_file
         
-        if conf>=70 :#and conf <=85:
-            #print(conf)
-            #print(id_)
-            #print(labels[id_])
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            name = labels[id_]
-            color = (255, 255, 0) 
-            strole = 2
-            counter = 1
-            #Affiche le texte au dessus de l'haar
-            cv2.putText(img, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
-            for i in range (0,2):
-                print(name)
-                img_item = name+".png"
-                print(img_item)
-                cv2.imwrite(img_item, img)
-                cv2.imwrite(img_item, roi_color)
-                origin_path = origin_path+img_item
-                print(origin_path)
-                folder_list = os.listdir(final_path)
-                #Pour les noms de fichier dans le dossier "python/OpenCV/Script/Mirroir_Connecté/images/"
-                for folder_name in folder_list:
-                    #On affiche la liste des dossiers
-                    print(folder_name)
-                    #Si l'un des dossiers se nomme "michel" alors on dit bonjour, on se deplace dans le dossier 
-                    
-                    if folder_name == "michel" and folder_name ==  name:
-                        shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        count_the_number_of_file_inside_the_directory = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        for filename in len(count_the_number_of_file_inside_the_directory):
-                            i = count_the_number_of_file_inside_the_directory +1
-                            final_name =  str(i)+".png"
-                            print(final_name)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/images/michel/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/michel/"+final_name)
-                        
-                    elif folder_name == "julien_hivert" and folder_name == name: 
-                        #on depace la photo dans le dossier de la personne
-                        #origin_path = racine du projet
-                        shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        count_the_number_of_file_inside_the_directory = len(os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name))
-                        #Pour les noms de fichiers dans la taille du tableau de fichier 
-                        for filename in range (count_the_number_of_file_inside_the_directory):
-                            #On incremente le compteur 
-                            i = count_the_number_of_file_inside_the_directory + 1 
-                            #On rename le fichier julien_hivert.png par le nombre /i/.png
-                            final_name = str(i)+".png"
-                            print(final_name)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/julien_hivert/"+final_name) 
-                    
-                    # elif folder_name == "Eva_Green" and folder_name == name:
-                    #     shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                    #     count_the_number_of_file_inside_the_directory = os.listdir("/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                    #     for filename  in range (len(count_the_number_of_file_inside_the_directory)):
-                    #         i = i+1
-                    #         print(i)
-                    #         os.rename("/home/julien/python/OpenCV/Script/MagicMirror/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/Eva_Green/"+str(i))
-                    #     sys.exit()
-                    
-                    elif folder_name == "emilia_clarcke" and folder_name == name:
-                        shutil.move(origin_path, "/home/julien/python/OpenCV/Script/MagicMirror/images/"+folder_name)
-                        count_the_number_of_file_inside_the_directory = len(os.listdir("/home/julien/python/OpenCV/Script/Magic/images/"+folder_name))
-                        for filename in range (count_the_number_of_file_inside_the_directory):
-                            i = count_the_number_of_file_inside_the_directory +1
-                            final_name =  str(i)+".png"
-                            print(final_name)
-                            os.rename("/home/julien/python/OpenCV/Script/MagicMirror/images/emilia_clarcke/"+img_item, "/home/julien/python/OpenCV/Script/MagicMirror/images/emilia_clarcke/"+final_name) 
+with:
+    trainer_file: The trainer file obtained using face_trainer.py, in YML format.""".format(filename=sys.argv[0])
 
-                        sys.exit()
-                    else :
-                        print("Personne inconnu au bataillon")
-            #Affichage du resultat
-            cv2.imwrite(img_item, roi_color)
+class Capture:
+    # Macro definition
+    FAILED = -1
+    CONTINUE = 1
+    MIN_PREDICT_PERCENT = 85
+    DEFAULT_NAME = "Unknown"
+    DELTA_TIME_SCREENSHOT = 3
+    DELTA_TIME_TEXT = 1
 
-    cv2.imshow("frame", img)
-    if cv2.waitKey(30) & 0xFF ==ord('q'):
+    # ARGS:
+    #   trainer: The trainer file name (dynamically made by 'face_trainer.py')
+    def __init__(self, trainer):
+        # VARIABLES INIT
+        #   Camera and face recognition
+        self.faceCascade = cv2.CascadeClassifier('haar/haarcascade_frontalface_default.xml')
+        self.recognizer = cv2.face.LBPHFaceRecognizer_create()
+        self.trainer = trainer
+        self.frames = {
+            'full': [],
+            'grayscale': [],
+            'roi': [],
+            'roiGrayscale': []
+        }
+        self.rect = {
+            'color': (255, 0, 0), #BGR
+            'stroke': 2
+        }
+        self.text = {
+            'style': {
+                'font': cv2.FONT_HERSHEY_SIMPLEX,
+                'color': (255, 255, 0), #BGR
+                'scale': 1,
+                'stroke': 1
+            },
+            'strings': { 
+                'pname': "Unknown",
+                'confidence': 0
+            }
+        }
+        
+        #   Internal algorithm
+        self.paths = {
+            'origin': os.getcwd() + '/',
+            'images': os.getcwd() + '/images/'
+        }
+        self.title = "Magic Mirror - Face Detection"
+        self.extension = ".png"
+
+        #   Generate different clocks and their delta time for update
+        self.clocks = {
+            'screenshot': Clock(self.DELTA_TIME_SCREENSHOT),
+            'text': Clock(self.DELTA_TIME_TEXT)
+        }
+        self.__errors = [
+            "Can't find trainer file with name '%s'.",
+            "Can't open webcam. Check your USB connection, if the camera is enabled and if video0 exists in /dev.",
+            "Error while reading next camera frame. The camera may have been disconnected.",
+            "A face has been recognize, but the label doesn't exist somehow.",
+            "Repository with path '%s' doesn't exist.",
+            "Can't copy frame in folder '%s'."
+        ]
+
+        # OPENCV INIT
+        #   Get trained values
+        try:
+            self.recognizer.read(self.trainer)
+        except:
+            self.printError(0, (self.trainer))
+            raise ValueError()
+        
+        with open('label.pickle', "rb") as f:
+            og_labels = pickle.load(f)
+            self.labels = { v:k for k,v in og_labels.items() }
+        self.camera = cv2.VideoCapture(0)
+
+    def release(self):
+        print("Exiting the Magic Mirror Face Detection. Goodbye!")
+        self.camera.release()
+        cv2.destroyAllWindows()
+
+    def detection(self):
+        if self.camera.isOpened() == False:
+            self.printError(1)
+            return self.FAILED
+
+        ret, self.frames['full'] = self.camera.read()
+        
+        if self.frames['full'] == []:
+            self.printError(2)
+            return self.FAILED
+
+        # Convert the captured frame in grayscale
+        self.frames['grayscale'] = cv2.cvtColor(self.frames['full'], cv2.COLOR_BGR2GRAY)
+        self.faces = self.faceCascade.detectMultiScale(self.frames['grayscale'], 1.3, 4)
+
+        # Display a blue rectangle at face's position
+        # Execute the algorithm next if a face is detected
+        for (x, y, width, height) in self.faces:
+            cv2.rectangle(self.frames['full'], (x, y), (x + width, y + height), self.rect['color'], self.rect['stroke'])
+            min = { 
+                'x': x + self.rect['stroke'],
+                'y': y + self.rect['stroke']
+            }
+            max = { 
+                'x': x + width - self.rect['stroke'],
+                'y': y + height - self.rect['stroke']
+            }
+
+            # R.O.I = Region Of Interest
+            # Recognize a face according to the captured grayscaled frame
+            # Get a preempted label and confidence percentage depending on how much the algorithm recognize the face
+            self.frames['roi'] = self.frames['full'][min['y']:max['y'], min['x']:max['x']]
+            self.frames['roiGrayscale'] = self.frames['grayscale'][min['y']:max['y'], min['x']:max['x']]
+            plabel, confidence = self.recognizer.predict(self.frames['roiGrayscale'])
+
+            # Get the name of the recognized face. If none, get 'Unknown' instead.
+            if confidence >= self.MIN_PREDICT_PERCENT:
+                if plabel in self.labels:
+                    pname = self.labels[plabel]
+                else:
+                    self.printError(3)
+                    return self.FAILED
+            else:
+                pname = self.DEFAULT_NAME
+
+            # Store info for display purpose
+            # _d is for "display"
+            if self.clocks['text'].timeElapsed():
+                self.text['strings']['pname'] = pname
+                self.text['strings']['confidence'] = confidence
+                self.clocks['text'].setTime(time.time())
+
+            pfolder = self.paths['images'] + pname + '/'
+
+            # Process these lines each DELTA_TIME_SCREENSHOT seconds
+            # Check if the folder exist and save a copy of the frame inside the folder
+            # Create a new folder otherwise
+            # Always keep your AI learns by itself :)
+            if self.clocks['screenshot'].timeElapsed():
+                self.clocks['screenshot'].setTime(time.time())
+                if not os.path.isdir(pfolder):
+                    os.mkdir(pfolder)
+                if self.copyFrameToFolder(self.frames['roi'], pfolder, pname) == self.FAILED:
+                    self.printError(4, (pfolder))
+
+        return self.CONTINUE
+
+    # Write new image in the correct folder when a face is detected
+    def copyFrameToFolder(self, frame, folder = ".", name = ""):
+        if frame == []:
+            return self.FAILED
+        
+        filename = name + str(len(os.listdir(folder)) + 1) + self.extension
+        cv2.imwrite(folder + filename, frame)
+
+    def display(self):
+        if self.frames['full'] == []:
+            self.printError(2)
+            return self.FAILED
+
+        # Draw text with style on the top left corner of the rectangle each delta time
+        for (x, y, width, height) in self.faces:
+            strings = self.text['strings']
+            style = self.text['style']
+
+            cv2.putText(self.frames['full'], strings['pname'], (x, y),
+                style['font'], style['scale'], style['color'], style['stroke'], cv2.LINE_AA)
+
+            cv2.putText(self.frames['full'], "Confidence: " + '%.2f' % strings['confidence'] + "%", (x, y + height),
+                style['font'], style['scale'] / 1.5, style['color'], style['stroke'], cv2.LINE_AA)
+
+        cv2.imshow(self.title, self.frames['full'])
+        return self.CONTINUE
+
+    def printError(self, errno, *args):
+        print("[ERROR] " + self.__errors[errno] % args, file=sys.stderr)
+
+
+# Argument 1 is the trainer yml file
+if len(sys.argv) < 2:
+    print(USAGE, file=sys.stderr)
+    sys.exit()
+
+# Miscellaneous variable initialization
+try:
+    capture = Capture(sys.argv[1])
+except ValueError:
+    sys.exit()
+
+firstLaunch = True
+
+# Wait until 'Q' is pressed to quit or an action failed
+while capture.detection() != capture.FAILED:
+    if firstLaunch:
+        print("Welcome to the Magic Mirror face detection. Hit 'Q' if you want to quit.")
+        firstLaunch = False
+    
+    # Garbage collect in __del__ and break the loop
+    if ord('q') == (cv2.waitKey(1) & 0xFF):
         break
+    
+    capture.display()
 
-cap.release()
-cv2.destroyAllWindows()
+capture.release()
