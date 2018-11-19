@@ -4,4 +4,4 @@ trainer.yml
 
 # Folders to omit
 __pycache__/
-Unknown/*
+Unknown/
