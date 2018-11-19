@@ -3,5 +3,5 @@ label.pickle
 trainer.yml
 
 # Folders to omit
-__pychache__/
-images/Unknown/
+__pycache__/
+Unknown/
