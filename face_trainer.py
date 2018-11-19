@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 image_dir = os.path.join(BASE_DIR, "images")
 
 #On utilise l'haar visage 
-face_cascade = cv2.CascadeClassifier('haar/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('haar/haarcascade_frontalface_alt.xml')
 
 #eye_cascade = cv2.CascadeClassifier('haar/haarcascade_eye.xml')
 #print(help(cv2.LBPHFaceRecognizer))
@@ -46,17 +46,16 @@ for root, dirs, files in os.walk(image_dir):
             #y_labels.append(label) #Some number
             #x_train.append(path)
             pil_image = Image.open(path).convert("L")
-            #Resize de l'image 
-            size = (900,900) #Taille de la nouvelle image 
-            final_image = pil_image.resize(size, Image.ANTIALIAS)
-            image_array = np.array(final_image, "uint8")
+            image_array = np.array(pil_image, "uint8")
             #print(image_array)
-            faces = face_cascade.detectMultiScale(image_array, 1.3, 5)
+            faces = face_cascade.detectMultiScale(image_array)
 
             for (x,y,w,h) in faces:
                 roi = image_array [y:y+h, x:x+w]
                 x_train.append(roi)
                 y_labels.append(id_)
+                cv2.imshow("Trainer", roi)
+                cv2.waitKey(0)
 
 #print(y_labels)
 #print(x_train)

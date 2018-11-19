@@ -13,7 +13,6 @@ class Clock:
 
     def timeElapsed(self):
         if self.getElapsedTime() >= self.__delta:
-            print(self.getElapsedTime(), self.__delta)
             return True
         return False
 
